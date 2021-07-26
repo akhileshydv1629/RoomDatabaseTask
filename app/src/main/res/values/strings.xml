@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">RoomDatabaseTask</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Task</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="clear_all">Clear All</string>
+    <array name="books">
+        <item name="a">Book A</item>
+        <item name="b">Book B</item>
+        <item name="c">Book C</item>
+    </array>
+</resources>

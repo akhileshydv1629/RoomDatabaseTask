@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="androidx.lifecycle.MutableLiveData" />
+        <variable
+            name="viewmodel"
+            type="com.newcompany.roomdatabasetask.MainActivityViewModel" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    tools:context=".fragments.FirstFragment">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Username"
+        android:digits="ABCDEFGHIJKLMNOPqRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+        android:singleLine="true"
+        android:text="@={viewmodel.inputUserName}"
+        android:backgroundTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        ></com.google.android.material.textfield.TextInputEditText>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etMobileNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Mobile Number"
+        android:singleLine="true"
+        android:inputType="phone"
+        android:text="@={viewmodel.inputMobile}"
+        android:backgroundTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etUserName"></com.google.android.material.textfield.TextInputEditText>
+
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:spinnerMode="dropdown"
+        app:entries="@{viewmodel.quantityEntries}"
+        app:selectedValue="@={viewmodel.inputBook}"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        app:layout_constraintTop_toBottomOf="@+id/etMobileNumber"></androidx.appcompat.widget.AppCompatSpinner>
+
+
+    <Button
+        android:id="@+id/button_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/design_default_color_primary_variant"
+        android:onClick="@{()->viewmodel.onSaveButtonClick()}"
+        android:text="@={viewmodel.saveOrUpdateButtonText}"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btnList"
+        app:layout_constraintRight_toLeftOf="@+id/btnClearAll"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spn" />
+
+    <Button
+        android:id="@+id/btnClearAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/design_default_color_primary_variant"
+        android:onClick="@{()->viewmodel.deleteAllUsers()}"
+        android:text="@string/clear_all"
+        android:textColor="@color/white"
+
+        app:layout_constraintBottom_toBottomOf="@+id/button_first"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toRightOf="@+id/spn"
+        app:layout_constraintStart_toEndOf="@+id/spn"
+        app:layout_constraintTop_toTopOf="@+id/button_first" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_size_title"
+        android:background="@color/design_default_color_primary_variant"
+        android:text="List"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_first"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnNewsList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_size_title"
+        android:background="@color/design_default_color_primary_variant"
+        android:text="News List"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnList"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/view_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:text="Download File"
+        android:enabled="@{!safeUnbox(viewmodel.downloading)}"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@+id/btnNewsList"
+        app:layout_constraintBottom_toTopOf="@+id/progress_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@android:style/Widget.Material.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0"
+        android:progressTint="@color/material_on_primary_disabled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_button"
+        tools:targetApi="lollipop" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
